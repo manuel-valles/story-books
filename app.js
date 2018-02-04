@@ -7,7 +7,7 @@ const app = express();
 
 // Index Route - Get request
 app.get('/', (req, res)=>{
-	res.send('Index');
+	res.send('Testing Heroku');
 });
 
 // Port Varibale
