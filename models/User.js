@@ -12,10 +12,10 @@ const UserSchema =  new Schema({
 		type: String,
 		required: true
 	},
-	firstname:{
+	firstName:{
 		type: String
 	},
-	lasttname:{
+	lastName:{
 		type: String
 	},
 	image:{
