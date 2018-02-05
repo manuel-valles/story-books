@@ -2,7 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
-
+const session = require('express-session');
 
 // Load User Model
 require('./models/User');
@@ -32,11 +32,28 @@ app.get('/', (req, res)=>{
 	res.send('Testing Heroku');
 });
 
-// Port Varibale
-const port = process.env.PORT || 5000;
+// Session Middleware
+app.use(session({
+	secret: 'secret',
+	resave: false,
+	saveUninitialized: false
+}))
+// Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Set global vars
+app.use((req, res, next)=>{
+	res.locals.user = req.user || null;
+	next();
+});
 
 // Use Routes
 app.use('/auth', auth);
+
+// Port Varibale
+const port = process.env.PORT || 5000;
+
 
 // Listen in certain port and a callback function
 app.listen(port, ()=>{
