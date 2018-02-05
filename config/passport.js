@@ -8,7 +8,7 @@ module.exports = (passport)=>{
 		new GoogleStrategy({
 			clientID: keys.googleClientID,
 			clientSecret: keys.googleClientSecret,
-			callbackURL: 'auth/google/callback',
+			callbackURL: '/auth/google/callback',
 			// Heroky will try https, so we need the proxy
 			proxy: true
 		}, (accessToken, refreshToken, profile, done)=>{
