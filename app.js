@@ -1,8 +1,9 @@
 // Import main modules
 const express = require('express');
+const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
-const passport = require('passport');
 const session = require('express-session');
+const passport = require('passport');
 
 // Load User Model
 require('./models/User');
@@ -11,6 +12,7 @@ require('./models/User');
 require('./config/passport')(passport);
 
 // Load Routes
+const index = require('./routes/index');
 const auth = require('./routes/auth');
 
 // Load Keys
@@ -27,10 +29,11 @@ mongoose.connect(keys.mongoURI)
 // Initialize the application
 const app = express();
 
-// Index Route - Get request
-app.get('/', (req, res)=>{
-	res.send('Testing Heroku');
-});
+// Handlebars Middleware
+app.engine('handlebars', exphbs({
+	defaultLayout: 'main'
+}));
+app.set('view engine', 'handlebars');
 
 // Session Middleware
 app.use(session({
@@ -38,6 +41,7 @@ app.use(session({
 	resave: false,
 	saveUninitialized: false
 }))
+
 // Passport Middleware
 app.use(passport.initialize());
 app.use(passport.session());
@@ -49,6 +53,7 @@ app.use((req, res, next)=>{
 });
 
 // Use Routes
+app.use('/', index);
 app.use('/auth', auth);
 
 // Port Varibale
