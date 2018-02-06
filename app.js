@@ -13,6 +13,7 @@ require('./config/passport')(passport);
 
 // Load Routes
 const index = require('./routes/index');
+const stories = require('./routes/stories');
 const auth = require('./routes/auth');
 
 // Load Keys
@@ -54,6 +55,7 @@ app.use((req, res, next)=>{
 
 // Use Routes
 app.use('/', index);
+app.use('/stories', stories);
 app.use('/auth', auth);
 
 // Port Varibale
