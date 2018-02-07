@@ -25,9 +25,25 @@ router.get('/show/:id', (req, res) => {
 	.populate('user')
 	.populate('comments.commentUser')
 	.then(story => {
-		res.render('stories/show', {
-			story: story
-		});
+		if(story.status == 'public'){
+			res.render('stories/show', {
+				story: story
+			});
+		} else{
+			// if the user is logged in
+			if(req.user){
+				// If the user owns the story
+				if(req.user.id == story.user._id){
+					res.render('stories/show', {
+						story: story
+					});
+				} else{
+					res.redirect('/stories');
+				}
+			} else{
+				res.redirect('/stories');
+			}
+		}
 	});
 });
 
