@@ -19,6 +19,12 @@ const index = require('./routes/index');
 const stories = require('./routes/stories');
 const auth = require('./routes/auth');
 
+// Handlebars Helpers
+const {
+	truncate,
+	stripTags
+} = require('./helpers/hbs');
+
 // Load Keys
 const keys = require('./config/keys');
 
@@ -39,6 +45,10 @@ app.use(bodyParser.json());
 
 // Handlebars Middleware
 app.engine('handlebars', exphbs({
+	helpers: {
+		truncate: truncate,
+		stripTags: stripTags
+	},
 	defaultLayout: 'main'
 }));
 app.set('view engine', 'handlebars');
