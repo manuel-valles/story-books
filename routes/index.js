@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
+const Story = mongoose.model('stories');
 const {ensureAuthenticated, ensureGuest} = require('../helpers/auth');
 
 // Index Route - Get request
@@ -9,7 +11,12 @@ router.get('/', ensureGuest, (req, res)=>{
 
 // Dashboard Route
 router.get('/dashboard', ensureAuthenticated, (req, res)=>{
-	res.render('index/dashboard');
+	Story.find({user:req.user.id})
+	.then(stories => {
+		res.render('index/dashboard', {
+			stories: stories
+		});
+	});
 });
 
 // About Route
