@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 module.exports = {
 	  truncate: (str, len)=>{
 	    if (str.length > len && str.length > 0) {
@@ -11,5 +13,8 @@ module.exports = {
 	  },
 	  stripTags: input => {
 	    return input.replace(/(?:<|&lt;).*?(?:>|&gt;)/gm, '');
+	  },
+	  formatDate: (date, format) => {
+		return moment(date).format(format);
 	  }	
 }

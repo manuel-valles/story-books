@@ -22,7 +22,8 @@ const auth = require('./routes/auth');
 // Handlebars Helpers
 const {
 	truncate,
-	stripTags
+	stripTags,
+	formatDate
 } = require('./helpers/hbs');
 
 // Load Keys
@@ -47,7 +48,8 @@ app.use(bodyParser.json());
 app.engine('handlebars', exphbs({
 	helpers: {
 		truncate: truncate,
-		stripTags: stripTags
+		stripTags: stripTags,
+		formatDate: formatDate
 	},
 	defaultLayout: 'main'
 }));
