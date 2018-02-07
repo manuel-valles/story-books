@@ -23,7 +23,8 @@ const auth = require('./routes/auth');
 const {
 	truncate,
 	stripTags,
-	formatDate
+	formatDate,
+	select
 } = require('./helpers/hbs');
 
 // Load Keys
@@ -49,7 +50,8 @@ app.engine('handlebars', exphbs({
 	helpers: {
 		truncate: truncate,
 		stripTags: stripTags,
-		formatDate: formatDate
+		formatDate: formatDate,
+		select: select
 	},
 	defaultLayout: 'main'
 }));
